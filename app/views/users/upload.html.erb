@@ -1,0 +1,27 @@
+<h2>Upload a CSV file</h2>
+<%debugger%>
+<p>Please upload a CSV file with the following columns:</p>
+<ul>
+  <li>Name</li>
+  <li>Email</li>
+  <li>Phone</li>
+</ul>
+<%= form_tag({ action: :upload }, multipart: true) do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag 'Upload' %>
+<% end %><h2>Upload a CSV file</h2>
+<% if flash[:alert].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+<p>Please upload a CSV file with the following columns:</p>
+<ul>
+  <li>Name</li>
+  <li>Email</li>
+  <li>Phone</li>
+</ul>
+<%= form_tag({ action: :upload }, multipart: true) do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag 'Upload' %>
+<% end %>

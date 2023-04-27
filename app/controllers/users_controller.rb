@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    puts "Shgiow temlate"
+    puts "Show template"
   end
 
   def upload
@@ -14,22 +14,25 @@ class UsersController < ApplicationController
         if user.valid?
           rows << user
         else
-          flash[:alert] = "Invalid data in row #{row.index + 1}: #{user.errors.full_messages.to_sentence}"
-          # redirect_to upload_users_path and return
+          flash.now[:alert] = "Invalid data in row #{row.index + 1}: #{user.errors.full_messages.to_sentence}"
+
+
+          # redirect_to users_upload_path and return
           render json: @users
         end
       end
       User.import(rows)
-      redirect_to users_path, notice: "File uploaded successfully"
+      @users = User.all
+      # redirect_to users_upload_path, notice: "File uploaded successfully"
+      render json: @users
     else
-      redirect_to upload_users_path, alert: "Please choose a file to upload"
+      # redirect_to users_upload_path, alert: "Please choose a file to upload"
+      render json: @users
     end
   end
 
   def export_csv
-    byebug
     @users = User.all
-
     require 'csv'
 
     csv_string = CSV.generate do |csv|
